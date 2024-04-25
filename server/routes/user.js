@@ -24,6 +24,7 @@ router.get("/getuser/:userId", async (req, res, next) => {
               topic: post.topic,
               username: post.username,
               userId: post.userId,
+              replies: post.replies,
               likes: post.likes,
               createdAt: post.createdAt
             })),

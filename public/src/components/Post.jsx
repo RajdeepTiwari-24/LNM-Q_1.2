@@ -65,35 +65,35 @@ export default function Post() {
   const [offsetY, setOffsetY] = useState(0);
   const handleScroll = () => setOffsetY(window.pageYOffset);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   const springProps1 = useSpring({
-    transform: `translateX(${-offsetY * 1.5}px)`,
+    // transform: `translateX(${-offsetY * 1.5}px)`,
   });
   const springProps2 = useSpring({
-    transform: `translateX(${offsetY * 1.5}px)`,
+    // transform: `translateX(${offsetY * 1.5}px)`,
   });
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
-  useEffect(() => {
-    const checkScrollPosition = () => {
-      if (window.pageYOffset > 430) {
-        setShowButton(true);
-      } else {
-        setShowButton(false);
-      }
-    };
+  // useEffect(() => {
+  //   const checkScrollPosition = () => {
+  //     if (window.pageYOffset > 430) {
+  //       setShowButton(true);
+  //     } else {
+  //       setShowButton(false);
+  //     }
+  //   };
 
-    window.addEventListener("scroll", checkScrollPosition);
+  //   window.addEventListener("scroll", checkScrollPosition);
 
-    return () => window.removeEventListener("scroll", checkScrollPosition);
-  }, []);
+  //   return () => window.removeEventListener("scroll", checkScrollPosition);
+  // }, []);
 
   return (
     <div className="App">
@@ -286,8 +286,10 @@ export default function Post() {
                         >
                           {" "}
                           Reply{" "}
+                          <sub>{post.replies.length}</sub>
                         </button>
                       </div>
+                      {console.log(post)}
                       {post.likes.indexOf(currUserId)=== -1 ? (
                       <>
                         <button onClick={()=> handleLike(post._id)}>Likes: </button>

@@ -58,33 +58,33 @@ export default function User({ userId }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [showButton, setShowButton] = useState(false);
     const [offsetY, setOffsetY] = useState(0);
-    const handleScroll = () => setOffsetY(window.pageYOffset);
+    // const handleScroll = () => setOffsetY(window.pageYOffset);
 
-    useEffect(() => {
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    // useEffect(() => {
+    //   window.addEventListener("scroll", handleScroll);
+    //   return () => window.removeEventListener("scroll", handleScroll);
+    // }, []);
 
-    useEffect(() => {
-        const checkScrollPosition = () => {
-          if (window.pageYOffset > 430) {
-            setShowButton(true);
-          } else {
-            setShowButton(false);
-          }
-        };
+    // useEffect(() => {
+    //     const checkScrollPosition = () => {
+    //       if (window.pageYOffset > 430) {
+    //         setShowButton(true);
+    //       } else {
+    //         setShowButton(false);
+    //       }
+    //     };
 
-        window.addEventListener("scroll", checkScrollPosition);
+    //     window.addEventListener("scroll", checkScrollPosition);
 
-    return () => window.removeEventListener("scroll", checkScrollPosition);
-    }, []);
+    // return () => window.removeEventListener("scroll", checkScrollPosition);
+    // }, []);
 
   const springProps1 = useSpring({
-    transform: `translateX(${-offsetY * 1.5}px)`,
+    // transform: `translateX(${-offsetY * 1.5}px)`,
   });
 
   const springProps2 = useSpring({
-    transform: `translateX(${offsetY * 1.5}px)`,
+    // transform: `translateX(${offsetY * 1.5}px)`,
   });
 
     return (
@@ -258,7 +258,9 @@ export default function User({ userId }) {
                             <button className="inline-block  bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" onClick={() => handleReplyClick(post._id)}>
                               {" "}
                               Reply{" "}
+                              <sub>{post.replies.length}</sub>
                             </button>
+                            {/* {console.log(post)} */}
                             {post.likes.indexOf(currUserId)=== -1 ? (
                               <>
                                 <button onClick={()=> handleLike(post._id)}>Likes: </button>

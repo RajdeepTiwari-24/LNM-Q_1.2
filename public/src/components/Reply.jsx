@@ -256,6 +256,7 @@ export default function Reply({ postId }) {
                               </div>
                               <p>{reply.text}</p>
                               <p>{new Date(reply.createdAt).toLocaleString()}</p>
+                              {console.log(reply)}
                               {currUserId === reply.userId && (
                                 <>
                                   <button
