@@ -6,7 +6,7 @@ const router = require("express").Router();
 
 router.post("/addreply", async (req, res, next) => {
   try {
-      const username = req.body.currusername;
+      const username = req.body.currUsername;
       const text = req.body.text;
       const postId= req.body.postId;
       const userId= req.body.userId;     

@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { allPostsRoute} from "../utils/APIRoutes";
 import Logout from "./Logout";
 import Sorting from './Sorting';
 import axios from "axios";
 import { getUserRoute } from "../utils/APIRoutes";
 import { useNavigate, Link } from "react-router-dom";
-
-import { InputDialog } from "../components/Dialog";
 import { useSpring, animated } from "react-spring";
-import "../css/post.css"; // Import Tailwind CSS styles
+import "../css/post.css"; 
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import img1 from "../assets/img1.png";
@@ -19,6 +18,7 @@ export default function User({ userId }) {
     const [user, setUser] = useState(null);
     const [posts, setPosts] = useState([]);
     const [currUserId, setCurrUserId] = useState(null);
+    const [isliked, setisliked] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,47 +31,58 @@ export default function User({ userId }) {
                 console.log(error);
             }
         };
-
         fetchData();
-    }, [userId]); 
-
-    useEffect(() => {
         if (localStorage.getItem("USER")) {
-            const userId = JSON.parse(localStorage.getItem("USER"))._id;
-            setCurrUserId(userId);
+          const userId = JSON.parse(localStorage.getItem("USER"))._id;
+          setCurrUserId(userId);
         }
-    }, []);
+    }, []); 
+
 
     const handleReplyClick = (postId) => {
         navigate(`/posts/${postId}`);
-      };
-      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showButton, setShowButton] = useState(false);
-  const [offsetY, setOffsetY] = useState(0);
-  const handleScroll = () => setOffsetY(window.pageYOffset);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  useEffect(() => {
-    const checkScrollPosition = () => {
-      if (window.pageYOffset > 430) {
-        setShowButton(true);
-      } else {
-        setShowButton(false);
-      }
     };
+    const handleLike = async (postId) => {
+      try {
+          const { data } = await axios.post(allPostsRoute,{
+            postId,
+            userId: currUserId
+          });
+          setPosts(posts.map(p => p._id === postId ? { ...p, likes: data.likes } : p));
+          setisliked(!isliked)
+      } catch (error) {
+          console.error(error);
+      }
+    }
 
-    window.addEventListener("scroll", checkScrollPosition);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [showButton, setShowButton] = useState(false);
+    const [offsetY, setOffsetY] = useState(0);
+    const handleScroll = () => setOffsetY(window.pageYOffset);
+
+    useEffect(() => {
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const checkScrollPosition = () => {
+          if (window.pageYOffset > 430) {
+            setShowButton(true);
+          } else {
+            setShowButton(false);
+          }
+        };
+
+        window.addEventListener("scroll", checkScrollPosition);
 
     return () => window.removeEventListener("scroll", checkScrollPosition);
-  }, []);
+    }, []);
 
   const springProps1 = useSpring({
     transform: `translateX(${-offsetY * 1.5}px)`,
   });
+
   const springProps2 = useSpring({
     transform: `translateX(${offsetY * 1.5}px)`,
   });
@@ -97,10 +108,6 @@ export default function User({ userId }) {
                 <Sorting posts={posts} setPosts={setPosts} username={true} />
               </div>
             </div>
-
-            {/* <div className={`${!showButton ? "hidden" : ""}`}>
-              <InputDialog posts={posts} setPosts={setPosts} />
-            </div> */}
             <div className="flex lg:hidden">
               <button
                 type="button"
@@ -112,19 +119,7 @@ export default function User({ userId }) {
               </button>
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-12">
-              {/* <button
-                className={`${
-                  !showButton ? "hidden" : ""
-                } bg-gray-300 border-1 p-2 px-24 rounded-full  shadow-md border-gray-200 mx-auto z-2000 `}
-              >
-                What do you want to ask or share?
-              </button> */}
-              <button
-                className="text-sm font-semibold leading-6 text-gray-900 "
-                // onClick={() => handleUsernameClick(currUserId)}
-              >
-                My Profile
-              </button>
+              <Link to="/posts"><button>Home</button></Link>
               <button
                 href="#"
                 className="text-sm font-semibold leading-6 text-gray-900"
@@ -161,14 +156,7 @@ export default function User({ userId }) {
               </div>
               <div className="mt-6 flow-root">
                 <div className="-my-6 divide-y divide-gray-500/10">
-                  <div className="space-y-2 py-6">
-                    <button
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      //   onClick={() => handleUsernameClick(currUserId)}
-                    >
-                      My Profile
-                    </button>
-                  </div>
+                  <Link to="/posts"><button>Home</button></Link>
                   <div className="py-6">
                     <button
                       href="#"
@@ -225,8 +213,6 @@ export default function User({ userId }) {
                     <p>{user.email}</p>
                     <p>{user.year}</p>
                     <p>{user.branch}</p>
-
-                    {/* <InputDialog posts={posts} setPosts={setPosts} /> */}
                     <div className="mt-10 flex items-center justify-center gap-x-6 ">
                       <div>
                         <Sorting
@@ -273,7 +259,18 @@ export default function User({ userId }) {
                               {" "}
                               Reply{" "}
                             </button>
-                            <p>Likes: {post.likes.length}</p>
+                            {post.likes.indexOf(currUserId)=== -1 ? (
+                              <>
+                                <button onClick={()=> handleLike(post._id)}>Likes: </button>
+                                <p className="inline"> {post.likes.length}</p>
+                              </>
+                                
+                            ):(
+                              <>
+                                <button className="bg-red-500 " onClick={()=> handleLike(post._id)}>Likes: </button>
+                                <p className="inline"> {post.likes.length}</p>
+                              </>
+                            )}
                           </div>
                           <div className="post-time">
                             <p>{new Date(post.createdAt).toLocaleString()}</p>

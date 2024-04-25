@@ -3,48 +3,14 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import {
-  allPostsRoute,
   addPostRoute,
   addReplyRoute,
-  deletePostRoute,
-  deleteReplyRoute,
 } from "../utils/APIRoutes";
 
 
-export function InputDialog({ posts, setPosts }) {
+export function PostDialog({ posts, setPosts , currUserId, currUsername}) {
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
-  const [currUsername, setCurrUsername] = useState(null);
-  const [currUserId, setCurrUserId] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    const GetPosts = async ()=>{
-      axios
-      .get(`${allPostsRoute}`)
-      .then((res) => {
-        const postData = Array.isArray(res.data) ? res.data.reverse() : [];
-        setTimeout(() => {
-          setPosts(postData);
-          setLoading(false);
-        }, 600);
-      })
-      .catch((e) => {
-        console.log(e);
-        setLoading(false);
-      });
-    }
-    GetPosts();
-    if (localStorage.getItem("USER")) {
-      const username = JSON.parse(localStorage.getItem("USER")).username;
-      const userId= JSON.parse(localStorage.getItem("USER"))._id;
-      setCurrUsername(username);
-      setCurrUserId(userId);
-    }
-    
-  }, []);
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -153,7 +119,6 @@ export function InputDialog({ posts, setPosts }) {
                       <button
                         type="submit"
                         className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                        //   onClick={() => setOpen(false)}
                         ref={cancelButtonRef}
                       >
                         ADD
@@ -178,49 +143,9 @@ export function InputDialog({ posts, setPosts }) {
   );
 }
 
-export function ReplyDialog({ postId, post, setpost }) {
+export function ReplyDialog({ postId, setpost, currUserId, currUsername }) {
   const [open, setOpen] = useState(false);
-  const [currusername, setusername] = useState(null);
   const cancelButtonRef = useRef(null);
-  const [reload, setreload] = useState(false);
-  const [currUsername, setCurrUsername] = useState(null);
-  const [currUserId, setCurrUserId] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    // console.log("User check");
-    if (localStorage.getItem("USER")) {
-      const username = JSON.parse(localStorage.getItem("USER")).username;
-      const userId = JSON.parse(localStorage.getItem("USER"))._id;
-      setusername(username);
-      setCurrUserId(userId);
-    }
-  }, []);
-
-  useEffect(()=>{
-    setLoading(true);
-    const GetPost= async ()=>{
-      try {
-        const {data} = await axios.get(`${allPostsRoute}/${postId}`);
-        setTimeout(() => {
-          setpost(data.post);
-          setLoading(false);
-        }, 600);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    }
-    GetPost();
-    if (localStorage.getItem("USER")) {
-      const username = JSON.parse(
-      localStorage.getItem("USER")
-    ).username;
-    const userId= JSON.parse(localStorage.getItem("USER"))._id;
-    setusername(username);
-    setCurrUserId(userId);
-    }
-},[])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -231,7 +156,7 @@ export function ReplyDialog({ postId, post, setpost }) {
     }
     const {data} = await axios.post(addReplyRoute, {
         text,
-        currusername,
+        currUsername,
         userId: currUserId,
         postId
     });
@@ -242,7 +167,6 @@ export function ReplyDialog({ postId, post, setpost }) {
         alert("Reply Added Successfully");
     }
     event.target.elements.text.value="";
-    console.log(data);
     setOpen(false);
     setpost(data.post);
   };
@@ -338,7 +262,6 @@ export function ReplyDialog({ postId, post, setpost }) {
           </div>
         </Dialog>
       </Transition.Root>
-      {/* {loading ? <Spinner /> : null} */}
     </>
   );
 }

@@ -1,40 +1,28 @@
 import React, { useEffect,useState } from 'react'
-import { allPostsRoute , addReplyRoute, deletePostRoute, deleteReplyRoute} from '../utils/APIRoutes'
+import { allPostsRoute , deletePostRoute, deleteReplyRoute} from '../utils/APIRoutes'
 import { useNavigate, Link} from "react-router-dom";
 import axios from 'axios'
 import Logout from './Logout';
-import Spinner from './Spinner';
 import "../css/reply.css";
-
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useSpring, animated } from "react-spring";
-import img1 from "../assets/img1.png";
-import img2 from "../assets/img2.png";
-import img3 from "../assets/img3.png";
 import { ReplyDialog } from "../components/Dialog";
 
 export default function Reply({ postId }) {
     const navigate = useNavigate();
     const [post, setpost] = useState(null);
-    const [currusername, setusername] =useState(null);
-    const [loading, setLoading] = useState(false);
     const [currUserId, setCurrUserId] = useState(null);
+    const [currUsername, setCurrUsername] = useState(null);
     const [isliked, setisliked] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(()=>{
-      setLoading(true);
       const GetPost= async ()=>{
         try {
           const {data} = await axios.get(`${allPostsRoute}/${postId}`);
-          setTimeout(() => {
-            setpost(data.post);
-            setLoading(false);
-          }, 600);
+          setpost(data.post);
         } catch (error) {
           console.log(error);
-          setLoading(false);
         }
       }
       GetPost();
@@ -43,8 +31,8 @@ export default function Reply({ postId }) {
         localStorage.getItem("USER")
       ).username;
       const userId= JSON.parse(localStorage.getItem("USER"))._id;
-      setusername(username);
       setCurrUserId(userId);
+      setCurrUsername(username);
       }
   },[])
 
@@ -122,6 +110,7 @@ export default function Reply({ postId }) {
                 </button>
               </div>
               <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-12">
+                <Link to="/posts"><button>Home</button></Link>
                 <button
                   className="text-sm font-semibold leading-6 text-gray-900 "
                   onClick={() => handleUsernameClick(currUserId)}
@@ -164,6 +153,7 @@ export default function Reply({ postId }) {
                 </div>
                 <div className="mt-6 flow-root">
                   <div className="-my-6 divide-y divide-gray-500/10">
+                    <Link to="/posts"><button>Home</button></Link>
                     <div className="space-y-2 py-6">
                       <button
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
@@ -241,20 +231,20 @@ export default function Reply({ postId }) {
                     <div>
                       <ReplyDialog
                         postId={postId}
-                        post={post}
                         setpost={setpost}
+                        currUserId={currUserId}
+                        currUsername={currUsername}
                       />
                     </div>
                   </div>
                 </div>
-                {/* </div> */}
   
                 <br />
                 <p>Replies:</p>
                 <div className="snap-container">
                   <ul>
                     {post.replies &&
-                      post.replies.reverse().map((reply) => (
+                      post.replies.map((reply) => (
                         <div className="snap-child-s sm:snap-child-l bg-image">
                           <div className="px-6 py-4">
                             <li key={reply._id}>

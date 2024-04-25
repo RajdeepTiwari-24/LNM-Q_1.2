@@ -1,32 +1,42 @@
 import Logout from "./Logout";
 import axios from "axios";
-import { allPostsRoute, addPostRoute } from "../utils/APIRoutes";
-import { useNavigate, useLocation } from "react-router-dom";
+import { allPostsRoute } from "../utils/APIRoutes";
+import { useNavigate } from "react-router-dom";
 import Sorting from "./Sorting";
 import { React, useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
-import "../css/post.css"; // Import Tailwind CSS styles
+import "../css/post.css"; 
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
 import img3 from "../assets/img3.png";
-import { InputDialog } from "../components/Dialog";
+import { PostDialog } from "../components/Dialog";
 
 export default function Post() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
-  const [currUsername, setCurrUsername] = useState(null);
   const [currUserId, setCurrUserId] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [currUsername, setCurrUsername] = useState(null);
   const [isliked, setisliked] = useState(false);
 
   useEffect(() => {
+    const GetPosts = async ()=>{
+      axios
+      .get(`${allPostsRoute}`)
+      .then((res) => {
+          setPosts(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    }
+    GetPosts();
     if (localStorage.getItem("USER")) {
       const username = JSON.parse(localStorage.getItem("USER")).username;
-      const userId = JSON.parse(localStorage.getItem("USER"))._id;
-      setCurrUsername(username);
+      const userId= JSON.parse(localStorage.getItem("USER"))._id;
       setCurrUserId(userId);
+      setCurrUsername(username);
     }
   }, []);
   
@@ -69,7 +79,6 @@ export default function Post() {
   });
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
@@ -109,7 +118,7 @@ export default function Post() {
             </div>
 
             <div className={`${!showButton ? "hidden" : ""}`}>
-              <InputDialog posts={posts} setPosts={setPosts} />
+              <PostDialog posts={posts} setPosts={setPosts} currUserId={currUserId} currUsername={currUsername}/>
             </div>
             <div className="flex lg:hidden">
               <button
@@ -218,7 +227,7 @@ export default function Post() {
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
                   LNM-Q
                 </h1>
-                <InputDialog posts={posts} setPosts={setPosts} />
+                <PostDialog posts={posts} setPosts={setPosts} currUserId={currUserId} currUsername={currUsername}/>
                 <div className="mt-10 flex items-center justify-center gap-x-6 ">
                   <div>
                     <Sorting
@@ -318,5 +327,3 @@ export default function Post() {
     </div>
   );
 }
-
-// export default App;
