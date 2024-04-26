@@ -1,4 +1,5 @@
 import Logout from "./Logout";
+import Filter from "./Filter";
 import axios from "axios";
 import { allPostsRoute } from "../utils/APIRoutes";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +20,7 @@ export default function Post() {
   const [currUserId, setCurrUserId] = useState(null);
   const [currUsername, setCurrUsername] = useState(null);
   const [isliked, setisliked] = useState(false);
+  const [isfilter, setisfilter] =useState(false);
 
   useEffect(() => {
     const GetPosts = async ()=>{
@@ -38,7 +40,7 @@ export default function Post() {
       setCurrUserId(userId);
       setCurrUsername(username);
     }
-  }, []);
+  }, [isfilter]);
   
   const handleLike = async (postId) => {
     try {
@@ -61,6 +63,7 @@ export default function Post() {
   const handleUsernameClick = (userId) => {
     navigate("/profile", { state: { userId: userId } });
   };
+
 
   const [offsetY, setOffsetY] = useState(0);
   const handleScroll = () => setOffsetY(window.pageYOffset);
@@ -236,7 +239,6 @@ export default function Post() {
                       username={false}
                     />
                   </div>
-
                   <button
                     href="#"
                     className="text-sm font-semibold leading-6 text-gray-900"
@@ -252,6 +254,7 @@ export default function Post() {
               </div>
             </div>
           </div>
+          <Filter setPosts={setPosts} posts={posts} setisfilter={setisfilter} isfilter={isfilter}/>
           <div className="snap-container">
             <ul>
               {posts &&
@@ -259,7 +262,7 @@ export default function Post() {
                   <li key={post._id}>
                     <div className="snap-child-s sm:snap-child-l bg-image">
                       <div className="px-6 py-4">
-                        <p onClick={() => handleUsernameClick(post.userId)}>
+                        <p onClick={() => handleUsernameClick(post.userId._id)}>
                           {post.username}
                         </p>
                         <div
@@ -289,7 +292,7 @@ export default function Post() {
                           <sub>{post.replies.length}</sub>
                         </button>
                       </div>
-                      {console.log(post)}
+                      {/* {console.log(post)} */}
                       {post.likes.indexOf(currUserId)=== -1 ? (
                       <>
                         <button onClick={()=> handleLike(post._id)}>Likes: </button>

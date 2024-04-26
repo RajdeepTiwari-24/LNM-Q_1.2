@@ -6,8 +6,9 @@ const router = require("express").Router();
 
 router.get("/allposts", async (req, res, next) => {
   try {
-    const allPosts = await Post.find();
+    const allPosts = await Post.find().populate("userId");
     allPosts.reverse();
+    //console.log(allPosts);
     return res.status(200).json(allPosts);
   } catch (ex) {
     next(ex);
