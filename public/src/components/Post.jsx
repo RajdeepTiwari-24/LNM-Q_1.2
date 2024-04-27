@@ -21,6 +21,7 @@ export default function Post() {
   const [currUsername, setCurrUsername] = useState(null);
   const [isliked, setisliked] = useState(false);
   const [isfilter, setisfilter] =useState(false);
+  const [resetFilter , setresetFilter] =useState(false);
 
   useEffect(() => {
     const GetPosts = async ()=>{
@@ -40,7 +41,7 @@ export default function Post() {
       setCurrUserId(userId);
       setCurrUsername(username);
     }
-  }, [isfilter]);
+  }, [resetFilter]);
   
   const handleLike = async (postId) => {
     try {
@@ -63,6 +64,9 @@ export default function Post() {
   const handleUsernameClick = (userId) => {
     navigate("/profile", { state: { userId: userId } });
   };
+  const handleFilter =()=>{
+    setisfilter(!isfilter);
+  }
 
 
   const [offsetY, setOffsetY] = useState(0);
@@ -254,7 +258,10 @@ export default function Post() {
               </div>
             </div>
           </div>
-          <Filter setPosts={setPosts} posts={posts} setisfilter={setisfilter} isfilter={isfilter}/>
+          <button className="w-full p-3 bg-[#1E75D5] text-white rounded-md inline mx-[30px]" onClick={handleFilter}>Filter Posts</button>
+          {isfilter && (
+            <Filter setPosts={setPosts}  setresetFilter={setresetFilter} resetFilter={resetFilter}/>
+          )}
           <div className="snap-container">
             <ul>
               {posts &&

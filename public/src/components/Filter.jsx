@@ -3,62 +3,68 @@ import axios from "axios";
 import { allPostsRoute } from "../utils/APIRoutes";
 
 
-export default function Filter({ setPosts, posts , setisfilter, isfilter}) {
+export default function Filter({ setPosts, setresetFilter, resetFilter}) {
   const [searchCriteria, setSearchCriteria] = useState('Empty');
+  const [filterPosts, setFilterPosts] = useState(null);
+
+  useEffect(() => {
+    const GetPosts = async () => {
+        try {
+            const response = await axios.get(`${allPostsRoute}`);
+            setFilterPosts(response.data); 
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+        }
+    };
+    GetPosts();
+}, [filterPosts]);
+
   
-  const handleFilter = (event) => {
-    // if(isfilter){
-    //   const GetPosts = async ()=>{
-    //     axios
-    //     .get(`${allPostsRoute}`)
-    //     .then((res) => {
-    //         setPosts(res.data);
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-    //    }
-    //    GetPosts();
-    // }
-  
+  const handleFilter = async (event) => {
     event.preventDefault(); 
-    let topic = 'Empty';
-    let username ='Empty';
-    let year= 'Empty';
-    let branch= 'Empty';
+    try {
+      console.log(filterPosts);
+      let topic = 'Empty';
+      let username ='Empty';
+      let year= 'Empty';
+      let branch= 'Empty';
 
-    if(searchCriteria==='topic'){
-        topic=event.target.elements.topic.value;
-        
-    }else if(searchCriteria==='username'){
-        username= event.target.elements.username.value;
-    }
-    if (event.target.elements.year.value !== '') {
-        year = event.target.elements.year.value.trim();
-        if (year[0] === 'y' || year[0] === 'Y') {
-          year = year.substr(1);
-        }
-        if (isNaN(year) || parseInt(year) < 0 || parseInt(year) > 24) {
-          alert('Wrong Year! Please enter a valid year');
-          return;
-        }
+      if(searchCriteria==='topic'){
+          topic=event.target.elements.topic.value;
+          
+      }else if(searchCriteria==='username'){
+          username= event.target.elements.username.value;
       }
-      
-    if(event.target.elements.branch.value!==''){
-        branch=event.target.elements.branch.value;
-    }
+      if (event.target.elements.year.value !== '') {
+          year = event.target.elements.year.value.trim();
+          if (year[0] === 'y' || year[0] === 'Y') {
+            year = year.substr(1);
+          }
+          if (isNaN(year) || parseInt(year) < 0 || parseInt(year) > 24) {
+            alert('Wrong Year! Please enter a valid year');
+            return;
+          }
+        }
+        
+      if(event.target.elements.branch.value!==''){
+          branch=event.target.elements.branch.value;
+      }
 
-    const filteredPosts = posts.filter((post) => {
-        return (
-          (topic === 'Empty' || post.topic.toLowerCase() === topic.toLowerCase()) &&
-          (username === 'Empty' || post.username.toLowerCase() === username.toLowerCase()) &&
-          (year === 'Empty' || post.userId.year.toLowerCase() === year.toLowerCase()) &&
-          (branch === 'Empty' || post.userId.branch.toLowerCase() === branch.toLowerCase())
-        );
-      });
-    setPosts(filteredPosts);
-    
+      const filteredPosts = filterPosts.filter((post) => {
+          return (
+            (topic === 'Empty' || post.topic.toLowerCase() === topic.toLowerCase()) &&
+            (username === 'Empty' || post.username.toLowerCase() === username.toLowerCase()) &&
+            (year === 'Empty' || post.userId.year.toLowerCase() === year.toLowerCase()) &&
+            (branch === 'Empty' || post.userId.branch.toLowerCase() === branch.toLowerCase())
+          );
+        });
+      setPosts(filteredPosts);
+      
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+    }
   };
+
   const handleReset=()=>{
     const radioButtons = document.querySelectorAll('input[type="radio"]');
     radioButtons.forEach((radioButton) => {
@@ -78,7 +84,8 @@ export default function Filter({ setPosts, posts , setisfilter, isfilter}) {
         yearInput.value = '';
     }
     setSearchCriteria('Empty');
-    setisfilter(true);
+    setresetFilter(!resetFilter);
+    setFilterPosts(null);
   }
 
   return (
