@@ -4,12 +4,14 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import {
   addPostRoute,
+  addPostUpload,
   addReplyRoute,
 } from "../utils/APIRoutes";
 
 
 export function PostDialog({ posts, setPosts , currUserId, currUsername}) {
   const [open, setOpen] = useState(false);
+  const [file, setFile] = useState(null);
   const cancelButtonRef = useRef(null);
 
   const handleSubmit = async (event) => {
@@ -24,22 +26,47 @@ export function PostDialog({ posts, setPosts , currUserId, currUsername}) {
       alert("Topic Required");
       return ;
     }
-    const { data } = await axios.post(addPostRoute, {
-      text,
-      topic,
-      currusername: currUsername,
-      currUserId
-    });
-    if (data.status === false) {
-      alert(data.msg);
+    if(file){
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('text', text);
+      formData.append('topic', topic);
+      formData.append('currusername', currUsername);
+      formData.append('currUserId', currUserId);
+      const {data} = await axios.post(addPostUpload, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      if (data.status === false) {
+        alert(data.msg);
+      }
+      if (data.status === true) {
+        alert("Post Added Successfully");
+      }
+      event.target.reset();
+      setOpen(false);
+      setFile(null);
+      setPosts([data.post, ...posts]);
+    }else{
+      const { data } = await axios.post(addPostRoute, {
+        text,
+        topic,
+        currusername: currUsername,
+        currUserId
+      });
+      if (data.status === false) {
+        alert(data.msg);
+      }
+      if (data.status === true) {
+        alert("Post Added Successfully");
+      }
+      event.target.reset();
+      setOpen(false);
+      setFile(null);
+      setPosts([data.post, ...posts]);
     }
-    if (data.status === true) {
-      alert("Post Added Successfully");
-    }
-    event.target.elements.text.value = "";
-    event.target.elements.topic.value = "";
-    setOpen(false);
-    setPosts([data.post, ...posts]);
+    
   };
 
   return (
@@ -111,6 +138,8 @@ export function PostDialog({ posts, setPosts , currUserId, currUsername}) {
                               rows={4}
                               style={{ width: "100%", maxWidth: "500px" }}
                             />
+                            <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+                            <p>* Upload any image if you want to.</p>
                           </div>
                         </div>
                       </div>

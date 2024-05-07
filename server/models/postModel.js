@@ -10,6 +10,10 @@ const PostSchema = mongoose.Schema({
         type: String,
         required:true
       },
+      imageUrl: {
+        type: String,
+        default: null
+      },
       username: {
         type: String,
         required: true
@@ -28,8 +32,6 @@ const PostSchema = mongoose.Schema({
         ref: 'User'
       }]
       },
-
-
     {
       timestamps: true,
     }

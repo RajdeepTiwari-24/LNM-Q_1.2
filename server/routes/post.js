@@ -1,8 +1,15 @@
 const Post = require("../models/postModel");
 const User = require("../models/userModel");
 const Reply = require("../models/replyModel");
+const multer = require("multer");
+const getDataUri = require("../utils/DataUri.js");
+const cloudinary= require("cloudinary");
 
 const router = require("express").Router();
+
+const storage= multer.memoryStorage();
+
+const singleUpload =multer ({storage}).single("file");
 
 router.get("/allposts", async (req, res, next) => {
   try {
@@ -74,6 +81,7 @@ router.post("/allposts/:postId", async (req, res, next) => {
 
 router.post("/addpost", async (req, res, next) => {
   try {
+    //console.log("Not upload image");
     const username = req.body.currusername;
     const userId= req.body.currUserId;
     const {text,topic} = req.body;
@@ -96,6 +104,35 @@ router.post("/addpost", async (req, res, next) => {
   }
 });
 
+router.post("/uploadpost", singleUpload, async (req, res, next) => {
+  try {
+   // console.log("upload image");
+    const username = req.body.currusername;
+    const userId= req.body.currUserId;
+    const {text,topic} = req.body;
+    const file = req.file;
+    const fileuri=getDataUri(file);
+    const mycloud= await cloudinary.v2.uploader.upload(fileuri.content);
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      return res.status(404).json({ status:false, msg: "User not found" });
+    }
+    const post = await Post.create({
+      text,
+      topic,
+      username,
+      imageUrl: mycloud.secure_url,
+      userId
+    });
+    user.posts.push(post._id);
+    await user.save();
+
+    return res.json({ status: true, post });
+  } catch (ex) {
+    next(ex);
+  }
+});
+
 router.post("/deletepost", async(req,res,next) =>{
   try{
     const postId= req.body.postId;
@@ -105,7 +142,13 @@ router.post("/deletepost", async(req,res,next) =>{
     }
     const userId=post.userId;
     await Reply.deleteMany({ _id: { $in: post.replies } });
-    
+    if(post.imageUrl){
+      const parts = post.imageUrl.split("/");
+      const publicIdWithExtension = parts.pop(); 
+      const publicId = publicIdWithExtension.split(".")[0]; 
+      //console.log(publicId);
+      const deleteresult= await cloudinary.v2.uploader.destroy(publicId);
+    }
     await Post.deleteOne({ _id: postId });
 
     const user = await User.findOne({ _id: userId });

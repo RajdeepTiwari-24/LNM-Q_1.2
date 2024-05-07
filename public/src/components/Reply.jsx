@@ -203,6 +203,9 @@ export default function Reply({ postId }) {
                     </p>
   
                     <p className="text-md font-semibold leading-6">{post.text}</p>
+                    {post.imageUrl && (
+                          <img src={`${post.imageUrl}`} alt="image" className= "mx-auto" />
+                    )}
                     {post.likes.indexOf(currUserId)=== -1 ? (
                       <>
                         <button onClick={()=> handleLike(post._id)}>Likes: </button>

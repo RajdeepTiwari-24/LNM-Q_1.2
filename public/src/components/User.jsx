@@ -253,6 +253,9 @@ export default function User({ userId }) {
                             <p className="text-gray-700 text-base">
                               {post.text}
                             </p>
+                            {post.imageUrl && (
+                               <img src={`${post.imageUrl}`} alt="image" className="h-[150px] w-[150px] mx-auto" />
+                            )}
                           </div>
                           <div className="px-6 pt-4 pb-2">
                             <button className="inline-block  bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" onClick={() => handleReplyClick(post._id)}>

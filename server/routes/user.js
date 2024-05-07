@@ -14,25 +14,7 @@ router.get("/getuser/:userId", async (req, res, next) => {
             return res.status(404).json({ status: false, msg: "User not found" });
           }
          // console.log('user backend 1');
-        const populatedUser = {
-            _id: user._id,
-            username: user.username,
-            email: user.email,
-            year: user.year,
-            branch: user.branch,
-            posts: user.posts.map((post) => ({
-              _id: post._id,
-              text: post.text,
-              topic: post.topic,
-              username: post.username,
-              userId: post.userId,
-              replies: post.replies,
-              likes: post.likes,
-              createdAt: post.createdAt
-            })),
-          };
-         // console.log(populatedUser);
-          return res.json(populatedUser);
+          return res.json(user);
         
     } catch (ex) {
       next(ex);

@@ -279,6 +279,9 @@ export default function Post() {
                           {post.topic}
                         </div>
                         <p className="text-gray-700 text-base">{post.text}</p>
+                        {post.imageUrl && (
+                          <img src={`${post.imageUrl}`} alt="image" className="h-[150px] w-[150px] mx-auto" />
+                        )}
                       </div>
                       <div className="px-6 pt-4 pb-2">
                         <button
