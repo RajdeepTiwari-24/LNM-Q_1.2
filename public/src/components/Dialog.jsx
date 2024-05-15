@@ -49,7 +49,7 @@ export function PostDialog({ posts, setPosts , currUserId, currUsername}) {
         toast.error(data.msg,toastOptions);
       }
       if (data.status === true) {
-        alert("Post Added Successfully");
+        toast.success("Post Added Successfully",toastOptions);
       }
       event.target.reset();
       setOpen(false);
@@ -66,7 +66,7 @@ export function PostDialog({ posts, setPosts , currUserId, currUsername}) {
         toast.error(data.msg,toastOptions);
       }
       if (data.status === true) {
-        alert("Post Added Successfully");
+        toast.success("Post Added Successfully",toastOptions);
       }
       event.target.reset();
       setOpen(false);
@@ -207,7 +207,7 @@ export function ReplyDialog({ postId, setpost, currUserId, currUsername }) {
         toast.error(data.msg,toastOptions);
      }
     if (data.status === true) {
-        alert("Reply Added Successfully");
+        toast.success("Reply Added Successfully",toastOptions);
     }
     event.target.elements.text.value="";
     setOpen(false);
