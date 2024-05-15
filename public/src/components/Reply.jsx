@@ -7,6 +7,8 @@ import "../css/reply.css";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ReplyDialog } from "../components/Dialog";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Reply({ postId }) {
     const navigate = useNavigate();
@@ -15,7 +17,13 @@ export default function Reply({ postId }) {
     const [currUsername, setCurrUsername] = useState(null);
     const [isliked, setisliked] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+    const toastOptions = {
+      position: "bottom-right",
+      autoClose: 4000,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "dark",
+    };
     useEffect(()=>{
       const GetPost= async ()=>{
         try {
@@ -41,7 +49,7 @@ export default function Reply({ postId }) {
           postId
         })
         if (data.status === false) {
-          alert(data.msg);
+          toast.error(data.msg,toastOptions);
         }
         if (data.status === true) {
           alert(data.msg);
@@ -55,10 +63,10 @@ export default function Reply({ postId }) {
           replyId
         })
         if (data.status === false) {
-          alert(data.msg);
+          toast.error(data.msg,toastOptions);
         }
         if (data.status === true) {
-          alert(data.msg);
+          alert(data.msg); 
         }
         setpost(data.post);
       }
@@ -82,6 +90,7 @@ export default function Reply({ postId }) {
     }; 
    
     return (
+    <>  
       <div className="App">
         <div className="bg-white">
           <header className="sticky inset-x-0 top-0 z-50">
@@ -283,5 +292,8 @@ export default function Reply({ postId }) {
           )}
         </div>
       </div>
+      <ToastContainer/>
+    </>
+
     );
   }

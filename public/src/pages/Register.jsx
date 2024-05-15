@@ -2,19 +2,27 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { registerRoute, deleteUnverifiedRoute } from "../utils/APIRoutes";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const im = require("../assets/im.jpg");
 
 export default function Register() {
   const navigate = useNavigate();
-
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 4000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
   useEffect(() => {
     const deleteUnverified = async () => {
       try {
         localStorage.removeItem('verificationEmail');
         const { data } = await axios.post(deleteUnverifiedRoute);
         if (data.status === false) {
-          alert(data.msg);
+          toast.error(data.msg,toastOptions);
         }
       } catch (error) {
         console.error('Error deleting unverified email:', error);
@@ -35,18 +43,19 @@ export default function Register() {
     const password = event.target.elements.password.value;
     const confirmPassword = event.target.elements.confirmPassword.value;
     if (password !== confirmPassword) {
-      alert("Password and confirm password should be same.");
+      toast.error("Password and confirm password should be same.",toastOptions);
       return false;
-    } else if (username.length < 3) {
-      alert("Username should be greater than 3 characters.");
-      return false;
-    } else if (password.length < 5) {
-      alert("Password should be equal or greater than 5 characters.");
+    } 
+    else if (username.length < 3) {
+      toast.error("Username should be greater than 3 characters.",toastOptions);
       return false;
     } else if (email === "") {
-      alert("Email is required.");
+      toast.error("Email is required.",toastOptions);
       return false;
-    }
+    }else if (password.length < 5) {
+      toast.error("Password should be equal or greater than 5 characters.",toastOptions);
+      return false;
+    } 
     return true;
   };
 
@@ -64,7 +73,7 @@ export default function Register() {
       });
 
       if (data.status === false) {
-        alert(data.msg);
+        toast.error(data.msg,toastOptions);
       }
       if (data.status === true) {
         localStorage.setItem("verificationEmail", email);
@@ -140,6 +149,7 @@ export default function Register() {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </>
   );
 }

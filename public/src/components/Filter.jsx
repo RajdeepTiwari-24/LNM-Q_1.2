@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { allPostsRoute } from "../utils/APIRoutes";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Filter({ setPosts, setresetFilter, resetFilter}) {
   const [searchCriteria, setSearchCriteria] = useState('Empty');
   const [filterPosts, setFilterPosts] = useState(null);
-
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 4000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
   useEffect(() => {
     const GetPosts = async () => {
         try {
@@ -41,7 +48,7 @@ export default function Filter({ setPosts, setresetFilter, resetFilter}) {
             year = year.substr(1);
           }
           if (isNaN(year) || parseInt(year) < 0 || parseInt(year) > 24) {
-            alert('Wrong Year! Please enter a valid year');
+            toast.error('Wrong Year! Please enter a valid year',toastOptions);
             return;
           }
         }

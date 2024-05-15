@@ -35,13 +35,13 @@ router.post("/register", async (req, res, next) => {
       }
       return res.json({ msg: "Email already used", status: false });
     }
-    // const str="@lnmiit.ac.in";
-    // if(email.length<str.length)
-    //   return res.json({ msg: "Not LNMIIT User", status: false });
+    const str="@lnmiit.ac.in";
+    if(email.length<str.length)
+      return res.json({ msg: "Not LNMIIT User", status: false });
 
-    // const last13Substring = email.substring(email.length - 13);
-    // if(last13Substring!=str)
-    //   return res.json({ msg: "Not LNMIIT User", status: false });
+    const last13Substring = email.substring(email.length - 13);
+    if(last13Substring!=str)
+      return res.json({ msg: "Not LNMIIT User", status: false });
     
     const hashedPassword = await bcrypt.hash(password, 10);
     const year=email.substring(0,2);

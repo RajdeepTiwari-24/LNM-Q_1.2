@@ -300,6 +300,7 @@ export default function Post() {
                           {" "}
                           Reply{" "}
                           <sub>{post.replies.length}</sub>
+                          
                         </button>
                       </div>
                       {/* {console.log(post)} */}

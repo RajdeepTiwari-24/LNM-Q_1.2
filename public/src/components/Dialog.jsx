@@ -7,23 +7,30 @@ import {
   addPostUpload,
   addReplyRoute,
 } from "../utils/APIRoutes";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function PostDialog({ posts, setPosts , currUserId, currUsername}) {
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState(null);
   const cancelButtonRef = useRef(null);
-
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 4000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     const text = event.target.elements.text.value;
     const topic =event.target.elements.topic.value;
     if (text.length < 1) {
-      alert("Empty");
+      toast.error("Text Empty",toastOptions);
       return ;
     }
     if(topic.length<1){
-      alert("Topic Required");
+      toast.error("Topic Required",toastOptions);
       return ;
     }
     if(file){
@@ -39,7 +46,7 @@ export function PostDialog({ posts, setPosts , currUserId, currUsername}) {
         }
       })
       if (data.status === false) {
-        alert(data.msg);
+        toast.error(data.msg,toastOptions);
       }
       if (data.status === true) {
         alert("Post Added Successfully");
@@ -56,7 +63,7 @@ export function PostDialog({ posts, setPosts , currUserId, currUsername}) {
         currUserId
       });
       if (data.status === false) {
-        alert(data.msg);
+        toast.error(data.msg,toastOptions);
       }
       if (data.status === true) {
         alert("Post Added Successfully");
@@ -168,6 +175,7 @@ export function PostDialog({ posts, setPosts , currUserId, currUsername}) {
           </div>
         </Dialog>
       </Transition.Root>
+      <ToastContainer/>
     </>
   );
 }
@@ -175,12 +183,18 @@ export function PostDialog({ posts, setPosts , currUserId, currUsername}) {
 export function ReplyDialog({ postId, setpost, currUserId, currUsername }) {
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
-
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 4000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     const  text  = event.target.elements.text.value;
     if(text.length <1){
-        alert("Empty");
+        toast.error("Empty",toastOptions);
         return false;
     }
     const {data} = await axios.post(addReplyRoute, {
@@ -190,7 +204,7 @@ export function ReplyDialog({ postId, setpost, currUserId, currUsername }) {
         postId
     });
     if (data.status === false) {
-        alert(data.msg);
+        toast.error(data.msg,toastOptions);
      }
     if (data.status === true) {
         alert("Reply Added Successfully");

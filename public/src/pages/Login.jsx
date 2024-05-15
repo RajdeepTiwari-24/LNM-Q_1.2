@@ -2,21 +2,29 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { loginRoute, deleteUnverifiedRoute } from "../utils/APIRoutes";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const im = require("../assets/video.gif");
 
 export default function Login() {
   const navigate = useNavigate();
-
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 4000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
   useEffect(() => {
     const deleteUnverified = async () => {
       try {
         localStorage.removeItem('verificationEmail');
         const { data } = await axios.post(deleteUnverifiedRoute);
-        if (data.status === false) {
-          alert(data.msg);
+        if (data.status === false){
+          toast.error(data.msg,toastOptions);
         }
       } catch (error) {
-        console.error('Error deleting unverified email:', error);
+        toast.error('Error deleting unverified email:', toastOptions);
       }
     };
     deleteUnverified(); 
@@ -32,10 +40,10 @@ export default function Login() {
     const email = event.target.elements.email.value;
     const password = event.target.elements.password.value;
     if (email === "") {
-      alert("Email and Password is required.");
+      toast.error("Email is required.",toastOptions);
       return false;
     } else if (password === "") {
-      alert("Email and Password is required.");
+      toast.error("Password is required.",toastOptions);
       return false;
     }
     return true;
@@ -51,11 +59,10 @@ export default function Login() {
         password,
       });
       if (data.status === false) {
-        alert(data.msg);
+        toast.error(data.msg,toastOptions);
       }
       if (data.status === true) {
         localStorage.setItem("USER", JSON.stringify(data.user));
-
         navigate("/posts");
       }
     }
@@ -116,6 +123,7 @@ export default function Login() {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </>
   );
 }
