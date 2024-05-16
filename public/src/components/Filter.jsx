@@ -21,6 +21,7 @@ export default function Filter({ setPosts, setresetFilter, resetFilter}) {
             setFilterPosts(response.data); 
         } catch (error) {
             console.error('Error fetching posts:', error);
+            toast.error('Internal Server Error, Retry After Sometime',toastOptions);
         }
     };
     GetPosts();
@@ -30,7 +31,7 @@ export default function Filter({ setPosts, setresetFilter, resetFilter}) {
   const handleFilter = async (event) => {
     event.preventDefault(); 
     try {
-      console.log(filterPosts);
+      //console.log(filterPosts);
       let topic = 'Empty';
       let username ='Empty';
       let year= 'Empty';
@@ -38,9 +39,19 @@ export default function Filter({ setPosts, setresetFilter, resetFilter}) {
 
       if(searchCriteria==='topic'){
           topic=event.target.elements.topic.value;
+          //console.log(topic);
+          if(topic.length==0){
+            toast.error('Topic is empty, please provide a topic or Reset Filter',toastOptions);
+            return;
+          }
+          
           
       }else if(searchCriteria==='username'){
           username= event.target.elements.username.value;
+          if(username.length==0){
+            toast.error('Username is empty, please provide an username or Reset Filter',toastOptions);
+            return;
+          }
       }
       if (event.target.elements.year.value !== '') {
           year = event.target.elements.year.value.trim();
