@@ -52,7 +52,7 @@ export default function Reply({ postId }) {
           toast.error(data.msg,toastOptions);
         }
         if (data.status === true) {
-          alert(data.msg);
+          toast.success(data.msg,toastOptions);
         }
         navigate("/posts");
       };
@@ -66,7 +66,7 @@ export default function Reply({ postId }) {
           toast.error(data.msg,toastOptions);
         }
         if (data.status === true) {
-          alert(data.msg); 
+          toast.success(data.msg,toastOptions); 
         }
         setpost(data.post);
       }
