@@ -30,7 +30,7 @@ export default function Reply({ postId }) {
           const {data} = await axios.get(`${allPostsRoute}/${postId}`);
           setpost(data.post);
         } catch (error) {
-          console.log(error);
+          toast.error('Internal Server Error, Retry After Sometime',toastOptions);
         }
       }
       GetPost();
@@ -84,7 +84,7 @@ export default function Reply({ postId }) {
             setpost(updatedPost);
             setisliked(!isliked);
         } catch (error) {
-            console.error(error);
+          toast.error('Internal Server Error, Retry After Sometime',toastOptions);
         }
         
     };

@@ -25,7 +25,7 @@ export default function Register() {
           toast.error(data.msg,toastOptions);
         }
       } catch (error) {
-        console.error('Error deleting unverified email:', error);
+        toast.error('Internal Server Error, Retry After Sometime',toastOptions);
       }
     };
     deleteUnverified(); 

@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 const Verify = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
-  //const [message, setMessage] = useState('');
   const toastOptions = {
     position: "bottom-right",
     autoClose: 4000,
@@ -27,7 +26,6 @@ const Verify = () => {
     try {
       const email=localStorage.getItem("verificationEmail");
       const {data} = await axios.post(verifyOtp, { email, otp });
-      //setMessage(data.msg);
       console.log("aagya1");
       console.log(data.status);
       if(data.status===true){
@@ -40,7 +38,6 @@ const Verify = () => {
       }
     } catch (error) {
       toast.error(error,toastOptions);
-      //setMessage("OTP Not Matched");
     }
   };
 
