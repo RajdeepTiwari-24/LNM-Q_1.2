@@ -106,7 +106,8 @@ router.post('/verify', async (req, res, next) => {
     delete userObject.password;
     delete userObject.posts;
     delete userObject.replies;
-    return res.json({ status: true, user: userObject });
+
+    res.json({ status: true, user: userObject });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: 'Internal Server Error', status: false });
