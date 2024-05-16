@@ -12,3 +12,4 @@ export const deleteUnverifiedRoute=`${host}/api/auth/deleteunverified`;
 export const verifyOtp = `${host}/api/auth/verify`;
 export const getUserRoute= `${host}/api/user/getuser`;
 export const forgotpassword = `${host}/api/password/forgot`;
+export const resetpassword = `${host}/api/password/reset`;

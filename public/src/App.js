@@ -7,6 +7,7 @@ import Postreply from "./pages/postreply";
 import Verifyotp from "./pages/verifyOtp"
 import Profile from "./pages/Profile";
 import Resetpassword from "./pages/resetpassword";
+import Newpassword from "./pages/newpassword";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/verify" element={< Verifyotp/>} />
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/resetpassword" element={<Resetpassword/>}/>
+        <Route path="/newpassword/:id" element={<Newpassword/>}/>
       </Routes>
     </BrowserRouter>
   );
