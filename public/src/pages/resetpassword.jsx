@@ -15,36 +15,11 @@ export default function Resetpassword (){
       draggable: true,
       theme: "dark",
     };
-    // useEffect(() => {
-    //   const deleteUnverified = async () => {
-    //     try {
-    //       localStorage.removeItem('verificationEmail');
-    //       const { data } = await axios.post(deleteUnverifiedRoute);
-    //       if (data.status === false) {
-    //         toast.error(data.msg,toastOptions);
-    //       }
-    //     } catch (error) {
-    //       console.error('Error deleting unverified email:', error);
-    //     }
-    //   };
-    //   deleteUnverified(); 
-    // }, []); 
-  
-    // useEffect(() => {
-    //   if (localStorage.getItem("USER")) {
-    //     navigate("/posts");
-    //   }
-    // }, []);
-  
-    const handleValidation = (event) => {
-      
-    };
+    
   
     const handleSubmit = async (event) => {
       event.preventDefault();
-      // if (handleValidation(event)) {
         const email = event.target.elements.email.value;
-        console.log(email);
         const { data } = await axios.post(forgotpassword, {
           email
         });
@@ -55,7 +30,6 @@ export default function Resetpassword (){
         if (data.status === true){
           toast.success("Reset Password Mail sent successfully",toastOptions);
         }
-      // }
     };
   
     return (

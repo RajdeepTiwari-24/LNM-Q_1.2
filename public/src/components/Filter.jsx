@@ -186,7 +186,7 @@ export default function Filter({ setPosts, setresetFilter, resetFilter}) {
       </button>
       <button className="maxw-200px p-3 bg-red-500 text-white rounded-md inline" onClick={handleReset}>Reset Filter</button>
     </form>
-    
+    <ToastContainer/>
     </>
   );
 }
