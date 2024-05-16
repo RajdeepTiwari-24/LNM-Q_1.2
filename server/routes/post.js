@@ -157,8 +157,7 @@ router.post("/deletepost", async(req,res,next) =>{
     }
     user.posts = user.posts.filter((id) => id.toString() !== postId);
     await user.save();
-
-    return res.json({ status: true, msg: "Post deleted successfully" });
+    res.json({ status:true, msg: "Post deleted successfully" });
 
   } catch (ex){
     next(ex);

@@ -45,16 +45,20 @@ export default function Reply({ postId }) {
   },[])
 
       const handledeletepost =async ()=>{
-        const data =await axios.post(deletePostRoute,{
+        const {data} =await axios.post(deletePostRoute,{
           postId
-        })
+        });
+        console.log(data.status);
         if (data.status === false) {
-          toast.error(data.msg,toastOptions);
+          toast.error("Post Not Deleted",toastOptions);
         }
         if (data.status === true) {
-          toast.success(data.msg,toastOptions);
+          console.log("aajana2");
+          toast.success("Post Deleted Suucessfully",toastOptions);
         }
-        navigate("/posts");
+        setTimeout(() => {
+          navigate("/posts");
+      }, 2000);
       };
 
       const handledeletereply = async (replyId)=>{

@@ -50,7 +50,6 @@ router.get("/reset/:id/:token",async(req,res,next)=>{
         const verify = jwt.verify(token, secret);
         res.redirect(`http://localhost:3000/newpassword/${id}`);
     }catch (error){
-        console.log(error);
         res.json({status:false,msg: "Something Went Wrong"});
     }
 });
