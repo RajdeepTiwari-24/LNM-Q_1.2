@@ -118,6 +118,12 @@ export default function Login() {
                     <Link to="/register">Create Account.</Link>
                   </span>
                 </p>
+                <p className="text-sm text-gray-500 mt-2">
+                  Forgot Password?{" "}
+                  <span className="text-[#1E75D5] cursor-pointer">
+                    <Link to="/resetpassword">Reset Here</Link>
+                  </span>
+                </p>
               </div>
             </div>
           </div>

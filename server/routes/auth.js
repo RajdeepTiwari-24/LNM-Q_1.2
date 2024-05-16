@@ -70,6 +70,7 @@ router.post("/register", async (req, res, next) => {
           <p><strong>OTP:</strong> <span style="font-weight: bold; color: #007bff;">${code}</span></p>
           <p>If you did not request this OTP or if you have any questions, please contact our support team immediately.</p>
           <p>Thanks</p>
+          <p>The LNMQ Development Team</p>
         </div>
       </body>
     </html>
