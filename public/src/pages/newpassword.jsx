@@ -1,16 +1,28 @@
 import React from 'react'
 import {useParams } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import crypto from 'crypto-js';
+import { useNavigate,useLocation } from "react-router-dom";
 import {resetpassword} from "../utils/APIRoutes";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useJwt } from "react-jwt";
 const im = require("../assets/im.jpg");
+const ENCRYPTION_KEY=process.env.REACT_APP_KEY;
+
+
+function decrypt(data) {
+  const bytes = crypto.AES.decrypt(data,process.env.REACT_APP_KEY);
+  return bytes.toString(crypto.enc.Utf8);
+}
 
 export default function Newpassword(){
-
-  const {id}=useParams();
+  const location = useLocation();
   const navigate = useNavigate();
+  const queryParams = new URLSearchParams(location.search); // Correctly initialize URLSearchParams
+  const encryptedId = queryParams.get('data');
+
+  const id = encryptedId ? decrypt(encryptedId) : null;
   const toastOptions = {
     position: "bottom-right",
     autoClose: 4000,
@@ -36,6 +48,7 @@ export default function Newpassword(){
     event.preventDefault();
     if (handleValidation(event)){
       const password = event.target.elements.password.value;
+      const id=decrypt(encryptedId);
       const {data} = await axios.post(resetpassword, {
         id,
         password,

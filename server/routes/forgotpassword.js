@@ -2,8 +2,10 @@ const router = require("express").Router();
 const User = require("../models/userModel");
 const sendEmail = require("../utils/sendEmail");
 const bcrypt = require("bcrypt");
+const crypto = require('crypto-js');
 const jwt = require("jsonwebtoken");
 const JWT_SECRET=process.env.SECRET;
+var ENCRYPTION_KEY = process.env.KEY;
 
 router.post("/forgot",async(req,res,next)=>{
     try{
@@ -12,7 +14,7 @@ router.post("/forgot",async(req,res,next)=>{
         if(!user){
             return res.json({status:false,msg: 'User not exist'});
         }
-        const secret = JWT_SECRET + user.password;
+        const secret = process.env.SECRET + user.password;
         const token = jwt.sign({ email: user.email, id: user._id }, secret, {
             expiresIn: "5m",
         });
@@ -31,6 +33,7 @@ router.post("/forgot",async(req,res,next)=>{
             </div>
           </body>
         </html>`;
+        console.log(link);
         await sendEmail(email, "Password Reset Request", msg);
         return res.json({status:true});
     }
@@ -45,12 +48,18 @@ router.get("/reset/:id/:token",async(req,res,next)=>{
     if(!user){
         return res.json({status:false,msg: 'User not exist'});
     }
-    const secret = JWT_SECRET + user.password;
+    console.log(JWT_SECRET);
+    const secret = process.env.SECRET + user.password;
     try{
         const verify = jwt.verify(token, secret);
-        res.redirect(`http://localhost:3000/newpassword/${id}`);
+        console.log(verify);
+        console.log(id);
+        console.log(process.env.KEY);//working
+        console.log(ENCRYPTION_KEY);//why not working 
+        const encryptedId=  crypto.AES.encrypt(id, process.env.KEY).toString();
+        res.redirect(`http://localhost:3000/newpassword?data=${encodeURIComponent(encryptedId)}`);
     }catch (error){
-        res.send("Link is Expired. Try Again");
+        res.send(error);
     }
 });
 
@@ -64,7 +73,6 @@ router.post("/reset",async(req,res,next)=>{
     catch(e){
         res.json({status:false,msg:'Error While Updating'});
     }
-
 });
 
 module.exports = router;
