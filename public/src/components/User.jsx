@@ -12,6 +12,8 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
 import img3 from "../assets/img3.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function User({ userId }) {
     const navigate = useNavigate();
@@ -19,6 +21,13 @@ export default function User({ userId }) {
     const [posts, setPosts] = useState([]);
     const [currUserId, setCurrUserId] = useState(null);
     const [isliked, setisliked] = useState(false);
+    const toastOptions = {
+      position: "bottom-right",
+      autoClose: 4000,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "dark",
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,6 +38,8 @@ export default function User({ userId }) {
                 setUser(data);
             } catch (error) {
                 console.log(error);
+                toast.error('Internal Server Error, Retry After Sometime',toastOptions);
+
             }
         };
         fetchData();
@@ -52,6 +63,7 @@ export default function User({ userId }) {
           setisliked(!isliked)
       } catch (error) {
           console.error(error);
+          toast.error('Internal Server Error, Retry After Sometime',toastOptions);
       }
     }
 

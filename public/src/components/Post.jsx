@@ -13,6 +13,8 @@ import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
 import img3 from "../assets/img3.png";
 import { PostDialog } from "../components/Dialog";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Post() {
   const navigate = useNavigate();
@@ -22,6 +24,13 @@ export default function Post() {
   const [isliked, setisliked] = useState(false);
   const [isfilter, setisfilter] =useState(false);
   const [resetFilter , setresetFilter] =useState(false);
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 4000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
 
   useEffect(() => {
     const GetPosts = async ()=>{
@@ -32,6 +41,8 @@ export default function Post() {
       })
       .catch((e) => {
         console.log(e);
+        toast.error('Internal Server Error, Retry After Sometime',toastOptions);
+
       });
     }
     GetPosts();
@@ -53,6 +64,8 @@ export default function Post() {
         setisliked(!isliked)
     } catch (error) {
         console.error(error);
+        toast.error('Internal Server Error, Retry After Sometime',toastOptions);
+
     }
     
 };

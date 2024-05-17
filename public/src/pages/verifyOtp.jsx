@@ -34,7 +34,7 @@ const Verify = () => {
         localStorage.setItem("USER", JSON.stringify(data.user));
         setTimeout(() => {
           navigate("/posts");
-      }, 5000);
+      }, 2000);
       }
     } catch (error) {
       toast.error(error,toastOptions);
