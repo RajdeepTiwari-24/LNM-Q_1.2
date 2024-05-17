@@ -21,7 +21,7 @@ function App() {
         <Route path="/verify" element={< Verifyotp/>} />
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/resetpassword" element={<Resetpassword/>}/>
-        <Route path="/newpassword/:id" element={<Newpassword/>}/>
+        <Route path="/newpassword" element={<Newpassword/>}/>
       </Routes>
     </BrowserRouter>
   );
