@@ -235,7 +235,7 @@ import { ComboboxDemo } from "./ui/combobox";
 
 export default function Filter({ setPosts, setresetFilter, resetFilter }) {
   const [searchCriteria, setSearchCriteria] = useState("Empty");
-  const [filterPosts, setFilterPosts] = useState(null);
+  const [originalPosts, setOriginalPosts] = useState([]);
   const [filters, setFilters] = useState({
     topic: "",
     username: "",
@@ -255,7 +255,7 @@ export default function Filter({ setPosts, setresetFilter, resetFilter }) {
     const GetPosts = async () => {
       try {
         const response = await axios.get(`${allPostsRoute}`);
-        setFilterPosts(response.data);
+        setOriginalPosts(response.data);
       } catch (error) {
         console.error("Error fetching posts:", error);
         toast.error(
@@ -265,26 +265,32 @@ export default function Filter({ setPosts, setresetFilter, resetFilter }) {
       }
     };
     GetPosts();
-  }, [filterPosts]);
+  }, []); 
 
   const handleFilter = async (event) => {
     event.preventDefault();
     try {
       let { topic, username, year, branch } = filters;
-
-      if (searchCriteria === "topic" && !topic) {
-        toast.error(
-          "Topic is empty, please provide a topic or Reset Filter",
-          toastOptions
-        );
-        return;
+      
+      if (searchCriteria === "topic" ) {
+        username="";
+        if(!topic){
+          toast.error(
+            "Topic is empty, please provide a topic or Reset Filter",
+            toastOptions
+          );
+          return;
+        }
       }
-      if (searchCriteria === "username" && !username) {
-        toast.error(
-          "Username is empty, please provide a username or Reset Filter",
-          toastOptions
-        );
-        return;
+      if (searchCriteria === "username") {
+        topic="";
+        if(!username){
+          toast.error(
+            "Username is empty, please provide a username or Reset Filter",
+            toastOptions
+          );
+          return;
+        }
       }
       if (year) {
         year = year.trim();
@@ -297,7 +303,7 @@ export default function Filter({ setPosts, setresetFilter, resetFilter }) {
         }
       }
 
-      const filteredPosts = filterPosts.filter((post) => {
+      const filteredPosts = originalPosts.filter((post) => {
         return (
           (topic === "" || post.topic.toLowerCase() === topic.toLowerCase()) &&
           (username === "" ||
@@ -323,7 +329,7 @@ export default function Filter({ setPosts, setresetFilter, resetFilter }) {
       branch: "",
     });
     setSearchCriteria("Empty");
-    setresetFilter(!resetFilter);
+    setPosts(originalPosts); 
   };
 
   const handleChange = (e) => {
@@ -403,46 +409,6 @@ export default function Filter({ setPosts, setresetFilter, resetFilter }) {
             </div>
             <div>
               By Branch :
-              {/* <label>
-                <input
-                  type="radio"
-                  name="branch"
-                  value="ucs"
-                  checked={filters.branch === "ucs"}
-                  onChange={handleChange}
-                />
-                UCS
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="branch"
-                  value="ucc"
-                  checked={filters.branch === "ucc"}
-                  onChange={handleChange}
-                />
-                UCC
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="branch"
-                  value="ume"
-                  checked={filters.branch === "ume"}
-                  onChange={handleChange}
-                />
-                UME
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="branch"
-                  value="uec"
-                  checked={filters.branch === "uec"}
-                  onChange={handleChange}
-                />
-                UEC
-              </label> */}
               <ComboboxDemo onChange={handleChange} value={filters.branch} />
             </div>
           </div>

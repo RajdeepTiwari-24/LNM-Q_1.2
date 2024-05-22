@@ -107,19 +107,21 @@
 //   );
 // }
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Button } from "./button";
 import { Command, CommandInput, CommandList, CommandItem } from "./command";
 
-export function ComboboxDemo() {
+export function ComboboxDemo({ onChange, value }) {
   const [open, setOpen] = useState(false);
   const [selectedBranch, setSelectedBranch] = useState(null);
 
-  const handleChange = (event) => {
-    setSelectedBranch(event.target.value);
-    setOpen(false);
-  };
+  useEffect(() => {
+    if (value) {
+      const branch = branches.find(branch => branch.value === value);
+      setSelectedBranch(branch || null);
+    }
+  }, [value]);
 
   const branches = [
     {
@@ -162,6 +164,7 @@ export function ComboboxDemo() {
                   key={branch.value}
                   onSelect={() => {
                     setSelectedBranch(branch);
+                    onChange({ target: { name: "branch", value: branch.value } });
                     setOpen(false);
                   }}
                 >
@@ -173,7 +176,10 @@ export function ComboboxDemo() {
                       checked={
                         selectedBranch && selectedBranch.value === branch.value
                       }
-                      onChange={handleChange}
+                      onChange={() => {
+                        setSelectedBranch(branch);
+                        onChange({ target: { name: "branch", value: branch.value } });
+                      }}
                     />
                     {branch.label}
                   </label>

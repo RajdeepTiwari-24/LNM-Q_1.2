@@ -37,8 +37,6 @@ export default function Post() {
   const [currUserId, setCurrUserId] = useState(null);
   const [currUsername, setCurrUsername] = useState(null);
   const [isliked, setisliked] = useState(false);
-  const [isfilter, setisfilter] = useState(false);
-  const [resetFilter, setresetFilter] = useState(false);
   const toastOptions = {
     position: "bottom-right",
     autoClose: 4000,
@@ -69,7 +67,7 @@ export default function Post() {
       setCurrUserId(userId);
       setCurrUsername(username);
     }
-  }, [resetFilter]);
+  }, []);
 
   const handleLike = async (postId) => {
     try {
@@ -94,9 +92,6 @@ export default function Post() {
 
   const handleUsernameClick = (userId) => {
     navigate("/profile", { state: { userId: userId } });
-  };
-  const handleFilter = () => {
-    setisfilter(!isfilter);
   };
 
   const [offsetY, setOffsetY] = useState(0);
@@ -131,9 +126,6 @@ export default function Post() {
               <div>
                 <Filter
                   setPosts={setPosts}
-                  setresetFilter={setresetFilter}
-                  resetFilter={resetFilter}
-                  // className="hidden lg:block"
                 />
               </div>
               <NavPostDialog
@@ -285,8 +277,6 @@ export default function Post() {
                   <div>
                     <Filter
                       setPosts={setPosts}
-                      setresetFilter={setresetFilter}
-                      resetFilter={resetFilter}
                     />
                   </div>
                   <button

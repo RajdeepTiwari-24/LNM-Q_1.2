@@ -13,6 +13,7 @@ const singleUpload =multer ({storage}).single("file");
 
 router.get("/allposts", async (req, res, next) => {
   try {
+    //console.log('aaya');
     const allPosts = await Post.find().populate("userId");
     allPosts.reverse();
     //console.log(allPosts);

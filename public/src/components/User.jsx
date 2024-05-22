@@ -200,11 +200,8 @@ export default function User({ userId }) {
                 />
               </div>
 
-              <div className="lg:grid lg:grid-cols-2 content relative h-[82vh] snap-start">
-                {/* <animated.div
-                  style={springProps1}
-                  className="bg-image hidden lg:block lg:absolute lg:-z-1"
-                > */}
+              <div className="-z-20 lg:grid lg:grid-cols-2 content relative h-[82vh] snap-start">
+                
                 <div className=" hidden lg:flex lg:justify-center lg:items-center">
                   <img
                     src={img1}
@@ -213,17 +210,6 @@ export default function User({ userId }) {
                   />
                 </div>
 
-                {/* </animated.div> */}
-                {/* <animated.div
-                  style={springProps2}
-                  className="bg-image hidden lg:block lg:absolute lg:-z-1 right-0"
-                > */}
-                {/* <img
-                  src={img2}
-                  alt="Placeholder"
-                  className="bg-image hidden lg:block lg:absolute -z-20 right-0"
-                /> */}
-                {/* </animated.div> */}
                 <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 z-100 ">
                   <div className="text-center">
                     {currUserId === userId ? (
@@ -263,14 +249,8 @@ export default function User({ userId }) {
                     </div>
                   </div>
                 </div>
-                {/* <div className="flex justify-center bottom-0 -z-1000">
-                  <div className="bg-image absolute -z-1000 bottom-0 m-auto">
-                    <img className="-z-1000" src={img3} alt="Placeholder" />
-                  </div>
-                </div> */}
               </div>
-              {/* <div className="snap-container"> */}
-              <ul ref={ref} className="lg:grid lg:grid-cols-2 gap-4">
+              <ul ref={ref} className="z-100 lg:grid lg:grid-cols-2 gap-4">
                 {posts &&
                   posts.map((post) => (
                     <li key={post._id}>
