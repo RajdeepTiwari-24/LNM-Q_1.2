@@ -77,12 +77,12 @@ export default function Reply({ postId }) {
     const { data } = await axios.post(deletePostRoute, {
       postId,
     });
-    console.log(data.status);
+    //console.log(data.status);
     if (data.status === false) {
       toast.error("Post Not Deleted", toastOptions);
     }
     if (data.status === true) {
-      console.log("aajana2");
+      //console.log("aajana2");
       toast.success("Post Deleted Suucessfully", toastOptions);
     }
     setTimeout(() => {
@@ -255,7 +255,9 @@ export default function Reply({ postId }) {
                         {" "}
                         {post.topic}
                       </CardTitle>
-                      <CardDescription className="text-2xl">
+                      <CardDescription className="text-2xl" onClick={() =>
+                                    handleUsernameClick(post.userId)
+                                  }>
                         {post.username}
                       </CardDescription>
                     </CardHeader>
@@ -453,7 +455,7 @@ export default function Reply({ postId }) {
                                 <p>
                                   {new Date(reply.createdAt).toLocaleString()}
                                 </p>
-                                {console.log(reply)}
+                                {/* {console.log(reply)} */}
                                 {currUserId === reply.userId && (
                                   <>
                                     <button
