@@ -188,11 +188,7 @@ export default function Post() {
               <div className="flex items-center justify-between">
                 <button href="#" className="-m-1.5 p-1.5">
                   <span className="sr-only">LNM-Q</span>
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt=""
-                  />
+                  <img className="h-8 w-auto" src={logo} alt="" />
                 </button>
                 <button
                   type="button"
