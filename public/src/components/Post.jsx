@@ -124,9 +124,7 @@ export default function Post() {
                 <Sorting posts={posts} setPosts={setPosts} username={false} />
               </div>
               <div>
-                <Filter
-                  setPosts={setPosts}
-                />
+                <Filter setPosts={setPosts} />
               </div>
               <NavPostDialog
                 posts={posts}
@@ -274,11 +272,11 @@ export default function Post() {
                       className="z-1000"
                     />
                   </div>
-                  <div>
+                  {/* <div>
                     <Filter
                       setPosts={setPosts}
                     />
-                  </div>
+                  </div> */}
                   <button
                     href="#"
                     onClick={handleClick}
