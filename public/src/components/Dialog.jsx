@@ -78,12 +78,6 @@ export function NavPostDialog({ posts, setPosts, currUserId, currUsername }) {
       <button>
         <MdAddCircleOutline onClick={() => setOpen(true)} size={23} />
       </button>
-      {/* <button
-        className="bg-gray-300 border-1 p-2 px-8 lg:px-24 rounded-full  shadow-md border-gray-200 mx-auto z-2 "
-        onClick={() => setOpen(true)}
-      >
-        What do you want to ask or share?
-      </button> */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
@@ -178,7 +172,6 @@ export function NavPostDialog({ posts, setPosts, currUserId, currUsername }) {
           </div>
         </Dialog>
       </Transition.Root>
-      {/* <ToastContainer /> */}
     </>
   );
 }
@@ -459,7 +452,6 @@ export function ReplyDialog({ postId, setpost, currUserId, currUsername }) {
                       <button
                         type="submit"
                         className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                        //   onClick={() => setOpen(false)}
                         ref={cancelButtonRef}
                       >
                         ADD
@@ -584,7 +576,6 @@ export function NavReplyDialog({ postId, setpost, currUserId, currUsername }) {
                       <button
                         type="submit"
                         className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                        //   onClick={() => setOpen(false)}
                         ref={cancelButtonRef}
                       >
                         ADD

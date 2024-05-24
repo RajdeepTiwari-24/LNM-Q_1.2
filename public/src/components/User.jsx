@@ -9,14 +9,11 @@ import "../css/post.css";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import img1 from "../assets/41656138_327153188042489_2142840811958576807_n.jpg";
-// import img2 from "../assets/img2.png";
-// import img3 from "../assets/img3.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -88,7 +85,6 @@ export default function User({ userId }) {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showButton, setShowButton] = useState(false);
 
   return (
     <div className="App">
@@ -103,11 +99,9 @@ export default function User({ userId }) {
                 <span className="sr-only">LNM-Q</span>
                 <img className="h-10 w-auto" src={logo} alt="" />
               </button>
-              {/* <div className={`${!showButton ? "hidden" : ""} justify-start`}> */}
               <div className="block">
                 <Sorting posts={posts} setPosts={setPosts} username={true} />
               </div>
-              {/* </div> */}
             </div>
             <div className="flex lg:hidden">
               <button
@@ -163,13 +157,6 @@ export default function User({ userId }) {
                     <button className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                       <Link to="/posts">Home</Link>
                     </button>
-                    {/* <div>
-                      <Sorting
-                        posts={posts}
-                        setPosts={setPosts}
-                        username={false}
-                      />
-                    </div> */}
                   </div>
                   <div className="py-6">
                     <button
@@ -230,14 +217,6 @@ export default function User({ userId }) {
                       Branch: {user.branch}
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6 ">
-                      {/* <div>
-                        <Sorting
-                          posts={posts}
-                          setPosts={setPosts}
-                          username={true}
-                        />
-                      </div> */}
-
                       <button
                         href="#"
                         onClick={handleClick}
@@ -253,56 +232,6 @@ export default function User({ userId }) {
                 {posts &&
                   posts.map((post) => (
                     <li key={post._id}>
-                      {/* <div className="snap-child-s sm:snap-child-l bg-image">
-                          <div className="px-6 py-4">
-                            <div
-                              className="font-bold text-xl mb-2"
-                              onClick={() => handleReplyClick(post._id)}
-                            >
-                              {post.topic}
-                            </div>
-                            <p className="text-gray-700 text-base">
-                              {post.text}
-                            </p>
-                            {post.imageUrl && (
-                              <img
-                                src={`${post.imageUrl}`}
-                                alt="image"
-                                className="h-[150px] w-[150px] mx-auto"
-                              />
-                            )}
-                          </div>
-                          <div className="px-6 pt-4 pb-2">
-                            <button
-                              className="inline-block  bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                              onClick={() => handleReplyClick(post._id)}
-                            >
-                              {" "}
-                              Reply <sub>{post.replies.length}</sub>
-                            </button>
-                            {post.likes.indexOf(currUserId) === -1 ? (
-                              <>
-                                <button onClick={() => handleLike(post._id)}>
-                                  Likes:{" "}
-                                </button>
-                                <p className="inline"> {post.likes.length}</p>
-                              </>
-                            ) : (
-                              <>
-                                <button
-                                  className="bg-red-500 "
-                                  onClick={() => handleLike(post._id)}
-                                >
-                                  Likes:{" "}
-                                </button>
-                                <p className="inline"> {post.likes.length}</p>
-                              </>
-                            )}
-                          </div>
-                          <div className="post-time">
-                            <p>{new Date(post.createdAt).toLocaleString()}</p>
-                          </div>
-                        </div> */}
                       <Card>
                         <CardHeader>
                           <CardTitle onClick={() => handleReplyClick(post._id)}>

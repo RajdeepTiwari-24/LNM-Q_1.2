@@ -139,7 +139,6 @@ export default function Reply({ postId }) {
                   <span className="sr-only">LNM-Q</span>
                   <img className="h-10 w-auto" src={logo} alt="" />
                 </button>
-                {/* <div className={`${!showButton ? "hidden" : ""} justify-start`}> */}
                 {post && (
                   <NavReplyDialog
                     postId={postId}
@@ -338,101 +337,6 @@ export default function Reply({ postId }) {
                     </div>
                   )}
                 </div>
-                {/* <div className=" flex flex-col justify-center items-center text-center">
-                    <p>Post: </p>
-
-                    <p className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                      {post.topic}
-                    </p>
-                    <p className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                      {post.username}
-                    </p>
-
-                    <p className="text-md font-semibold leading-6">
-                      {post.text}
-                    </p>
-                    <div>
-                      {post.imageUrl && (
-                        <div className="lg:hidden">
-                          <UIDialog>
-                            <DialogTrigger>Attachment</DialogTrigger>
-                            <DialogContent>
-                              // <DialogHeader>
-                                <DialogTitle>
-                                  Are you absolutely sure?
-                                </DialogTitle>
-                                <DialogDescription>
-                                  This action cannot be undone. This will
-                                  permanently delete your account and remove
-                                  your data from our servers.
-                                </DialogDescription>
-                             // </DialogHeader> 
-                              <div className="p-2">
-                                <img
-                                  src={`${post.imageUrl}`}
-                                  alt="image"
-                                  className="mx-auto"
-                                />
-                              </div>
-                            </DialogContent>
-                          </UIDialog>
-                        </div>
-                      )}
-                    </div>
-                    {post.likes.indexOf(currUserId) === -1 ? (
-                      <>
-                        <button onClick={() => handleLike(post._id)}>
-                          <FaRegHeart size={23} color="red" />
-                        </button>
-                        <p className="inline"> {post.likes.length}</p>
-                      </>
-                    ) : (
-                      <>
-                        <button onClick={() => handleLike(post._id)}>
-                          <FaHeart size={23} color="red" />
-                        </button>
-                        <p className="inline"> {post.likes.length}</p>
-                      </>
-                    )}
-                    <p>{new Date(post.createdAt).toLocaleString()}</p>
-
-                    {currUserId === post.userId && (
-                      <>
-                        <button
-                          className="inline-block  bg-red-500 rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2"
-                          onClick={() => handledeletepost()}
-                        >
-                          Delete
-                        </button>
-                        <br />
-                      </>
-                    )}
-                    <div>
-                      <ReplyDialog
-                        postId={postId}
-                        setpost={setpost}
-                        currUserId={currUserId}
-                        currUsername={currUsername}
-                      />
-                    </div>
-                  </div>
-                  {post.imageUrl && (
-                    <div className="hidden lg:flex lg:flex-col lg:justify-center lg:items-center lg:text-center">
-                      <img
-                        src={`${post.imageUrl}`}
-                        alt="image"
-                        className="mx-auto"
-                      />
-                    </div>
-                  )}
-                  {!post.imageUrl && (
-                    <div className="hidden lg:flex lg:flex-col lg:justify-center lg:items-center lg:text-center">
-                      <img src={img} alt="Placeholder" />
-                    </div>
-                  )}*/}
-                {/* </div>  */}
-
-                {/* <br /> */}
                 <div>
                   <div>
                     <p className="text-2xl mt-4">Replies:</p>
@@ -455,7 +359,6 @@ export default function Reply({ postId }) {
                                 <p>
                                   {new Date(reply.createdAt).toLocaleString()}
                                 </p>
-                                {/* {console.log(reply)} */}
                                 {currUserId === reply.userId && (
                                   <>
                                     <button

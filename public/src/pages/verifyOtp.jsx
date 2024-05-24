@@ -94,15 +94,6 @@ const Verify = () => {
               </button>
             </CardFooter>
           </Card>
-
-          {/* <input
-            type="text"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-          />
-          <button className="" onClick={handleVerify}>
-            Verify
-          </button> */}
         </div>
         <ToastContainer />
       </div>

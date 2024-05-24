@@ -33,7 +33,6 @@ const createTransporter = async () => {
 		refreshToken: process.env.REFRESH_TOKEN
 	  },
 	  tls: {
-		// do not fail on invalid certs
 		rejectUnauthorized: false,
 	  },
 	});

@@ -100,7 +100,6 @@ export default function Post() {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showButton, setShowButton] = useState(false);
 
   return (
     <div className="App">
@@ -115,11 +114,7 @@ export default function Post() {
                 <span className="sr-only">LNM-Q</span>
                 <img className="h-10 w-auto" src={logo} alt="" />
               </button>
-              {/* <div className={`${!showButton ? "hidden" : ""} justify-start`}> */}
-
-              <div
-              // className="rounded-md bg-blue-400 border-2 border-gr"
-              >
+              <div>
                 <Sorting posts={posts} setPosts={setPosts} username={false} />
               </div>
               <div>
@@ -132,15 +127,6 @@ export default function Post() {
                 currUsername={currUsername}
               />
             </div>
-
-            {/* <div className={`${!showButton ? "hidden" : ""}`}>
-              <PostDialog
-                posts={posts}
-                setPosts={setPosts}
-                currUserId={currUserId}
-                currUsername={currUsername}
-              />
-            </div> */}
             <div className="flex lg:hidden">
               <button
                 type="button"
@@ -197,20 +183,6 @@ export default function Post() {
                     >
                       My Profile
                     </button>
-                    {/* <div>
-                      <Sorting
-                        posts={posts}
-                        setPosts={setPosts}
-                        username={false}
-                      />
-                    </div>
-                    <div>
-                      <Filter
-                        setPosts={setPosts}
-                        setresetFilter={setresetFilter}
-                        resetFilter={resetFilter}
-                      />
-                    </div> */}
                   </div>
                   <div className="py-6">
                     <button
@@ -263,17 +235,6 @@ export default function Post() {
                   currUsername={currUsername}
                 />
                 <div className="mt-10 flex items-center justify-center gap-x-6 ">
-                  {/* <div>
-                    <Sorting
-                      posts={posts}
-                      setPosts={setPosts}
-                      username={false}
-                      className="z-1000"
-                    />
-                  </div> */}
-                  {/* <div>
-                    <Filter setPosts={setPosts} />
-                  </div> */}
                   <button
                     href="#"
                     onClick={handleClick}
@@ -290,20 +251,6 @@ export default function Post() {
               </div>
             </div>
           </div>
-          {/* <button
-            className="w-full p-3 bg-[#1E75D5] text-white rounded-md inline mx-[30px]"
-            onClick={handleFilter}
-          >
-            Filter Posts
-          </button>
-          {isfilter && (
-            <Filter
-              setPosts={setPosts}
-              setresetFilter={setresetFilter}
-              resetFilter={resetFilter}
-            />
-          )} */}
-          {/* <div className="snap-container"> */}
           <ul ref={ref} className="lg:grid lg:grid-cols-2 lg:gap-4">
             {posts &&
               posts.map((post) => (
