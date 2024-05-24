@@ -100,9 +100,7 @@ export default function Post() {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  if (!post) {
-    return <>Loading...</>;
-  }
+
   return (
     <div className="App">
       <div className="bg-white">
