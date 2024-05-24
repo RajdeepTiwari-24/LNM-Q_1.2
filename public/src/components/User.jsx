@@ -22,6 +22,7 @@ import { ScrollArea } from "./ui/scroll-area";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { MdAttachFile } from "react-icons/md";
+import { BiMessageAdd } from "react-icons/bi";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { useRef } from "react";
 import logo from "../assets/Removal-689.png";
@@ -247,11 +248,18 @@ export default function User({ userId }) {
                         <CardFooter className="grid grid-cols-3">
                           <div className="grid grid-cols-2">
                             <button
-                              className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 "
+                              className="hidden lg:inline-block  bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 "
                               onClick={() => handleReplyClick(post._id)}
                             >
                               {" "}
                               Reply <sub>{post.replies.length}</sub>
+                            </button>
+                            <button className="lg:hidden">
+                              {" "}
+                              <sub>{post.replies.length}</sub>
+                              <BiMessageAdd
+                                onClick={() => handleReplyClick(post._id)}
+                              />
                             </button>
                             {post.imageUrl && (
                               <HoverCard>
