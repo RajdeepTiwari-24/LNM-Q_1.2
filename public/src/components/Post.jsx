@@ -212,7 +212,7 @@ export default function Post() {
             />
           </div>
 
-          <div className="content relative  h-[82vh]">
+          <div className="content relative  h-[82vh] -z-10">
             <img
               src={img1}
               alt="Placeholder"
@@ -251,7 +251,7 @@ export default function Post() {
               </div>
             </div>
           </div>
-          <ul ref={ref} className="lg:grid lg:grid-cols-2 lg:gap-4">
+          <ul ref={ref} className="lg:grid lg:grid-cols-2 lg:gap-4 z-20">
             {posts &&
               posts.map((post) => (
                 <li key={post._id}>
