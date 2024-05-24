@@ -100,7 +100,9 @@ export default function Post() {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  if (!post) {
+    return <>Loading...</>;
+  }
   return (
     <div className="App">
       <div className="bg-white">
@@ -212,7 +214,7 @@ export default function Post() {
             />
           </div>
 
-          <div className="content relative  h-[82vh] -z-10">
+          <div className="content relative  h-[82vh]">
             <img
               src={img1}
               alt="Placeholder"
@@ -223,7 +225,7 @@ export default function Post() {
               alt="Placeholder"
               className="layer bg-image hidden lg:block lg:absolute -z-20 right-0"
             />
-            <div className="layer mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 z-10000 lg:relative">
+            <div className="layer mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 z-50 lg:relative">
               <div className="text-center">
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
                   LNM-Q
@@ -251,7 +253,7 @@ export default function Post() {
               </div>
             </div>
           </div>
-          <ul ref={ref} className="lg:grid lg:grid-cols-2 lg:gap-4 z-20">
+          <ul ref={ref} className="z-100 lg:grid lg:grid-cols-2 lg:gap-4">
             {posts &&
               posts.map((post) => (
                 <li key={post._id}>
