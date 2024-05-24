@@ -44,7 +44,6 @@ export default function Post() {
     draggable: true,
     theme: "dark",
   };
-
   useEffect(() => {
     const GetPosts = async () => {
       axios
@@ -264,18 +263,16 @@ export default function Post() {
                   currUsername={currUsername}
                 />
                 <div className="mt-10 flex items-center justify-center gap-x-6 ">
-                  <div>
+                  {/* <div>
                     <Sorting
                       posts={posts}
                       setPosts={setPosts}
                       username={false}
                       className="z-1000"
                     />
-                  </div>
+                  </div> */}
                   {/* <div>
-                    <Filter
-                      setPosts={setPosts}
-                    />
+                    <Filter setPosts={setPosts} />
                   </div> */}
                   <button
                     href="#"

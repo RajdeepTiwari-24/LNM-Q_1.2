@@ -201,7 +201,6 @@ export default function User({ userId }) {
               </div>
 
               <div className="-z-20 lg:grid lg:grid-cols-2 content relative h-[82vh] snap-start">
-                
                 <div className=" hidden lg:flex lg:justify-center lg:items-center">
                   <img
                     src={img1}
@@ -231,13 +230,13 @@ export default function User({ userId }) {
                       Branch: {user.branch}
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6 ">
-                      <div>
+                      {/* <div>
                         <Sorting
                           posts={posts}
                           setPosts={setPosts}
                           username={true}
                         />
-                      </div>
+                      </div> */}
 
                       <button
                         href="#"
