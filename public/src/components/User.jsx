@@ -92,7 +92,7 @@ export default function User({ userId }) {
       <div className="bg-white">
         <header className="sticky inset-x-0 top-0 z-50">
           <nav
-            className="flex items-center justify-between p-6 lg:px-8"
+            className="flex items-center justify-between p-4 lg:px-8 border-gray-200 bg-[#F9EFF9] drop-shadow-md"
             aria-label="Global"
           >
             <div className="flex lg:flex-1 gap-x-12">
@@ -115,16 +115,18 @@ export default function User({ userId }) {
               </button>
             </div>
             <div className="hidden lg:flex lg:justify-end lg:gap-x-12">
-              <button
-                href="#"
-                className="text-sm font-semibold leading-6 text-gray-900"
+              <Link
+                to="/posts"
+                className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >
-                <Link to="/posts">Home</Link>
-              </button>
+                <button className="-mx-3 block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                  Home
+                </button>
+              </Link>
 
               <button
                 href="#"
-                className="text-sm font-semibold leading-6 text-gray-900"
+                className="-mx-3 block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >
                 <Logout />
               </button>

@@ -17,6 +17,11 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        fat: ["Fat", "sans-serif"],
+        thunder: ["Thunder", "sans-serif"],
+        thunderit: ["ThunderItalic", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

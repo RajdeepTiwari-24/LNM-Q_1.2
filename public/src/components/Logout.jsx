@@ -12,7 +12,7 @@ export default function Logout() {
   return (
     <div className="logutcontainer">
       <div
-        className="button -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-6 text-gray-900"
+        className="button -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-6 text-gray-900 h-auto"
         onClick={handleClick}
       >
         LOGOUT

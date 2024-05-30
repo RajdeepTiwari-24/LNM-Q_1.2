@@ -106,7 +106,7 @@ export default function Post() {
       <div className="bg-white">
         <header className="sticky inset-x-0 top-0 z-50">
           <nav
-            className="flex items-center justify-between p-6 lg:px-8 "
+            className="flex items-center justify-between p-4 lg:px-8 border-gray-200 bg-[#F9EFF9] drop-shadow-md"
             aria-label="Global"
           >
             <div className="flex lg:flex-1 gap-x-12">
@@ -115,10 +115,18 @@ export default function Post() {
                 <img className="h-10 w-auto" src={logo} alt="" />
               </button>
               <div>
-                <Sorting posts={posts} setPosts={setPosts} username={false} />
+                <Sorting
+                  className="-mx-3 block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  posts={posts}
+                  setPosts={setPosts}
+                  username={false}
+                />
               </div>
               <div>
-                <Filter setPosts={setPosts} />
+                <Filter
+                  className="-mx-3 block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  setPosts={setPosts}
+                />
               </div>
               <NavPostDialog
                 posts={posts}
@@ -139,14 +147,14 @@ export default function Post() {
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-12">
               <button
-                className="text-sm font-semibold leading-6 text-gray-900 "
+                className="-mx-3 block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 onClick={() => handleUsernameClick(currUserId)}
               >
                 My Profile
               </button>
               <button
                 href="#"
-                className="text-sm font-semibold leading-6 text-gray-900"
+                className="-mx-3 block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >
                 <Logout />
               </button>
@@ -225,9 +233,14 @@ export default function Post() {
             />
             <div className="layer mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 z-50 lg:relative">
               <div className="text-center">
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  LNM-Q
-                </h1>
+                <h1 className="group font-thunder tracking-wide text-8xl text-transparent bg-clip-text bg-[#5B3DD2] drop-shadow-md hover:drop-shadow-xl transition duration-150 hover:ease-in">
+                  LNM-
+                  <h1 className="font-thunderit tracking-wide text-8xl text-transparent inline-block bg-clip-text pr-3 bg-[#5B3DD2] transition duration-150 group-hover:bg-gradient-to-r group-hover:from-[#5B3DD2] group-hover:to-[#EB993D] group-hover:ease-in ">
+                    Q
+                  </h1>
+                  .
+                </h1>{" "}
+                <br />
                 <PostDialog
                   posts={posts}
                   setPosts={setPosts}

@@ -131,7 +131,7 @@ export default function Reply({ postId }) {
         <div className="bg-white">
           <header className="sticky inset-x-0 top-0 z-50">
             <nav
-              className="flex items-center justify-between p-6 lg:px-8"
+              className="flex items-center justify-between p-4 lg:px-8 border-gray-200 bg-[#F9EFF9] drop-shadow-md"
               aria-label="Global"
             >
               <div className="flex lg:flex-1 gap-x-12">
@@ -149,7 +149,7 @@ export default function Reply({ postId }) {
                 )}
                 {currUserId === post.userId && (
                   <>
-                    <button>
+                    <button className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                       <BiTrash size={23} onClick={() => handledeletepost()} />
                     </button>
                     <br />
@@ -168,18 +168,23 @@ export default function Reply({ postId }) {
               </div>
 
               <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-12">
-                <button className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                  <Link to="/posts">Home</Link>
-                </button>
+                <Link
+                  to="/posts"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-center font-semibold leading-7 text-gray-900 hover:bg-gray-50 h-auto"
+                >
+                  <button className="-mx-3 block rounded-lg px-3 my-auto text-center font-semibold leading-7 text-gray-900 hover:bg-gray-50 h-auto">
+                    Home
+                  </button>
+                </Link>
                 <button
-                  className="text-sm font-semibold leading-6 text-gray-900 "
+                  className="-mx-3 block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   onClick={() => handleUsernameClick(currUserId)}
                 >
                   My Profile
                 </button>
                 <button
                   href="#"
-                  className="text-sm font-semibold leading-6 text-gray-900"
+                  className="-mx-3 block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   <Logout />
                 </button>
@@ -254,9 +259,10 @@ export default function Reply({ postId }) {
                         {" "}
                         {post.topic}
                       </CardTitle>
-                      <CardDescription className="text-2xl" onClick={() =>
-                                    handleUsernameClick(post.userId)
-                                  }>
+                      <CardDescription
+                        className="text-2xl"
+                        onClick={() => handleUsernameClick(post.userId)}
+                      >
                         {post.username}
                       </CardDescription>
                     </CardHeader>
