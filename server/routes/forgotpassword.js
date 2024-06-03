@@ -33,7 +33,7 @@ router.post("/forgot",async(req,res,next)=>{
             </div>
           </body>
         </html>`;
-        console.log(link);
+        // console.log(link);
         await sendEmail(email, "Password Reset Request", msg);
         return res.json({status:true});
     }
