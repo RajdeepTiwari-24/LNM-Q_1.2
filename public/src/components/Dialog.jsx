@@ -111,39 +111,41 @@ export function NavPostDialog({ posts, setPosts, currUserId, currUsername }) {
                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                   <form action="" onSubmit={(event) => handleSubmit(event)}>
                     <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                      <div className="sm:flex sm:items-start">
-                        <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                          <ExclamationTriangleIcon
-                            className="h-6 w-6 text-red-600"
+                      <div className=" sm:flex sm:items-start">
+                        <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                          <MdAddCircleOutline
+                            className="h-6 w-6 text-blue-600"
                             aria-hidden="true"
                           />
                         </div>
-                        <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                        <div className="w-full mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left mr-8">
                           <Dialog.Title
                             as="h3"
                             className="text-base font-semibold leading-6 text-gray-900"
                           >
                             What do you want to share or ask?
                           </Dialog.Title>
-                          <div className="mt-2">
+                          <div className="w-full flex flex-col space-y-5 mt-6 ">
                             <input
                               type="text"
                               placeholder="Topic"
                               name="topic"
                               min="1"
+                              className="w-full font-semibold text-xl border-2 p-2"
                             />
                             <textarea
-                              placeholder="ADD TEXT HERE"
+                              placeholder="Add text here."
                               name="text"
+                              className="w-full border-2 text-lg p-2"
                               minLength={1}
                               rows={4}
-                              style={{ width: "100%", maxWidth: "500px" }}
+                              // style={{ width: "100%", maxWidth: "500px" }}
                             />
                             <input
                               type="file"
                               onChange={(e) => setFile(e.target.files[0])}
                             />
-                            <p>* Upload any image if you want to.</p>
+                            <p className="text-sm">* Upload any image if you want to.</p>
                           </div>
                         </div>
                       </div>
@@ -151,7 +153,7 @@ export function NavPostDialog({ posts, setPosts, currUserId, currUsername }) {
                     <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                       <button
                         type="submit"
-                        className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                        className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
                         ref={cancelButtonRef}
                       >
                         ADD
@@ -279,42 +281,46 @@ export function PostDialog({ posts, setPosts, currUserId, currUsername }) {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-xl">
                   <form action="" onSubmit={(event) => handleSubmit(event)}>
                     <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                      <div className="sm:flex sm:items-start">
-                        <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                          <ExclamationTriangleIcon
-                            className="h-6 w-6 text-red-600"
+                      <div className=" sm:flex sm:items-start">
+                        <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                          <MdAddCircleOutline
+                            className="h-6 w-6 text-blue-600"
                             aria-hidden="true"
                           />
                         </div>
-                        <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                        <div className="w-full mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left mr-8">
                           <Dialog.Title
                             as="h3"
                             className="text-base font-semibold leading-6 text-gray-900"
                           >
                             What do you want to share or ask?
                           </Dialog.Title>
-                          <div className="mt-2">
+                          <div className="w-full flex flex-col space-y-5 mt-6 ">
                             <input
                               type="text"
                               placeholder="Topic"
                               name="topic"
                               min="1"
+                              className="w-full font-semibold text-xl border-2 p-2"
                             />
                             <textarea
-                              placeholder="ADD TEXT HERE"
+                              placeholder="Add text here."
                               name="text"
+                              className="w-full border-2 text-lg p-2"
                               minLength={1}
                               rows={4}
-                              style={{ width: "100%", maxWidth: "500px" }}
+                              // style={{ width: "100%", maxWidth: "500px" }}
                             />
                             <input
                               type="file"
                               onChange={(e) => setFile(e.target.files[0])}
                             />
-                            <p>* Upload any image if you want to.</p>
+                            <p className="text-sm">
+                              * Upload any image if you want to.
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -322,7 +328,7 @@ export function PostDialog({ posts, setPosts, currUserId, currUsername }) {
                     <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                       <button
                         type="submit"
-                        className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                        className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
                         ref={cancelButtonRef}
                       >
                         ADD
