@@ -105,7 +105,7 @@ export default function Post() {
   return (
     <>
       <div className="App">
-        <div className="bg-white h-[100vh]">
+        <div className="bg-white h-[100vh] w-[100vw] overflow-x-hidden">
           <header className="sticky inset-x-0 top-0 z-50">
             <nav
               className="flex items-center justify-between p-4 lg:px-8 border-gray-200 bg-[#F9EFF9] drop-shadow-md"
@@ -349,9 +349,9 @@ export default function Post() {
           </div>
           <footer className="mt-10 mb-0 w-full text-center flex flex-col space-y-10">
             <p className="font-semibold text-lg">Made by:</p>
-            <div className="grid grid-cols-7 space-x-4">
+            <div className="grid grid-cols-3 lg:grid-cols-7  lg:space-x-4">
               <a
-                className="col-start-3"
+                className="col-start-2 lg:col-start-3 min-w-48 "
                 href="https://github.com/RajdeepTiwari-24"
                 target="_blank"
               >
@@ -368,7 +368,7 @@ export default function Post() {
                 </div>
               </a>
               <a
-                className="col-start-4"
+                className="col-start-2 lg:col-start-4 min-w-48 my-4 lg:my-0"
                 href="https://github.com/Sahil-Sidana"
                 target="_blank"
               >
@@ -385,7 +385,7 @@ export default function Post() {
                 </div>
               </a>
               <a
-                className="col-start-5"
+                className="col-start-2 lg:col-start-5 min-w-48"
                 href="https://github.com/Tushars815"
                 target="_blank"
               >
